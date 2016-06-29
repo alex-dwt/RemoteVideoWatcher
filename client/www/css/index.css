@@ -1,0 +1,74 @@
+/*
+* This file is part of the RemoteVideoWatcher package.
+* (c) Alexander Lukashevich <aleksandr.dwt@gmail.com>
+* For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+*/
+
+#image {
+	text-align: center;
+	border: 1px solid rgba(0,0,0,.15);
+	margin-top: 0.3em;
+	width: 100%;
+}
+
+#image img{
+	max-width: 100%;
+}
+
+
+#save-options-btn {
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+div.ui-flipswitch {
+	float: right;
+}
+
+div.ui-flipswitch + p {
+	line-height: 1.875em;
+	border: 1px solid transparent;
+	padding: 0.5em;
+	margin: 0;
+}
+
+[data-role="header"] h1 {
+	font-size: 0.8em !important;
+	line-height: 1.8em;
+}
+
+div.ui-content {
+	padding-top: 0.5em;
+}
+
+#btn-options {
+	margin-right: .5em;
+}
+
+#status {
+	float: left;
+	margin: 0;
+	margin-left: 1em;
+	margin-top: 0.6em;
+	width: 2em;
+	height: 2em;
+	border-radius: 2em;
+	padding: 0;
+	line-height: 2em;
+	color: #FFF;
+}
+
+#status[data-status="home"] {
+	background-color: green;
+}
+#status[data-status="remote"] {
+	background-color: #DAA520;
+}
+#status[data-status="closed"] {
+	background-color: red;
+}
+
+.camera-switcher.disabled a{
+	background-color: #e9e9e9;
+}

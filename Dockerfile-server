@@ -1,0 +1,29 @@
+# This file is part of the RemoteVideoWatcher package.
+# (c) Alexander Lukashevich <aleksandr.dwt@gmail.com>
+# For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+
+FROM %_base_image_name_%
+MAINTAINER Alexander Lukashevich <aleksandr.dwt@gmail.com>
+
+RUN apt-get update && apt-get install -y imagemagick nodejs npm libjpeg8-dev
+RUN mkdir -p /camera/server && cd /camera/server && npm install ws node-static aes-js
+RUN apt-get purge -y npm && apt-get autoremove -y
+RUN echo '/opt/vc/lib' > /etc/ld.so.conf.d/00-vmcs.conf
+
+# streamer
+COPY ./build/mjpg_streamer /camera/streamer/
+COPY ./build/*.so /camera/streamer/
+RUN chmod +x /camera/streamer/*
+
+# www folder
+COPY ./client/www /camera/www/
+COPY ./build/index.js /camera/www/js/
+
+# server
+COPY ./build/server.* /camera/server/
+COPY ./build/cameras.sh /camera/server/
+RUN chmod +x /camera/server/cameras.sh
+
+CMD rm -rf /camera/streamer/run/* && \
+ldconfig && \
+/usr/bin/nodejs /camera/server/server.js

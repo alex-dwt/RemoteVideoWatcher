@@ -1,0 +1,64 @@
+<!--This file is part of the RemoteVideoWatcher package.-->
+<!--(c) Alexander Lukashevich <aleksandr.dwt@gmail.com>-->
+<!--For the full copyright and license information, please view the LICENSE file that was distributed with this source code.-->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<title>Remote Video Watcher</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'self' data: 'unsafe-inline';">
+
+	<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
+
+	<script src="cordova.js"></script>
+	<script src="lib/base64.js"></script>
+	<script src="lib/aes-js.js"></script>
+	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="lib/jquery.mobile-1.4.5.min.js"></script>
+	<script src="lib/fastclick.js"></script>
+	<script src="js/index.js"></script>
+
+</head>
+<body>
+
+	<div data-role="page" id="main-page">
+		<div data-role="header" data-position="fixed">
+			<a data-rel="dialog" href="#options-page"  class="ui-btn-right ui-btn ui-shadow ui-corner-all ui-icon-gear ui-btn-icon-notext" id="btn-options"></a>
+			<h1 id="status" data-status="closed"></h1><h1>&nbsp;</h1>
+		</div>
+
+		<div data-role="content" class="ui-content" id="main-page-body">
+
+			<!--dynamic switchers-->
+
+			<div id="image" class="ui-corner-all ui-shadow">
+				<img src=""/>
+			</div>
+		</div>
+	</div>
+
+
+	<div data-role="page" id="options-page">
+		<div data-role="header"><h1>Options</h1></div>
+		<div data-role="content">
+			<label for="options-ip-address">IP address</label>
+			<input type="text" id="options-ip-address">
+
+			<div id="options-page-body">
+
+				<!--dynamic options-->
+
+			</div>
+
+			<button id="save-options-btn" class="ui-btn ui-corner-all ui-shadow ui-icon-check ui-btn-icon-notext"></button>
+		</div>
+	</div>
+
+</body>
+</html>

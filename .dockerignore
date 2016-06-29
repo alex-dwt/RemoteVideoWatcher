@@ -1,0 +1,2 @@
+# to improve caching in Dockerfile-client
+client/www/js/index.js
