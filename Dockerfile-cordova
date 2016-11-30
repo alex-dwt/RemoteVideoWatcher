@@ -11,18 +11,22 @@ RUN npm install -g cordova
 RUN curl http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz | tar xz -C /usr/local/
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-RUN (sleep 10 && while [ 1 ]; do sleep 1; echo y; done) | /usr/local/android-sdk-linux/tools/android update sdk -a --no-ui --filter $(android list sdk --all | egrep -i "(android sdk platform-tools, revision 23.1|android sdk build-tools, revision 23.0.3|sdk platform android 6.0)" | egrep -o "[0-9]+-" | tr -d - | xargs -I {} printf {}, | rev | cut -c 2- | rev)
+RUN (sleep 10 && while [ 1 ]; do sleep 1; echo y; done) | /usr/local/android-sdk-linux/tools/android update sdk -a --no-ui --filter $(android list sdk --all | egrep -i "(android sdk platform-tools, revision|android sdk build-tools, revision 23.0.3|sdk platform android 6.0)" | egrep -o "[0-9]+-" | tr -d - | xargs -I {} printf {}, | rev | cut -c 2- | rev)
+# accept license
+RUN mkdir "$ANDROID_HOME/licenses"; \
+    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"; \
+    echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
 COPY ./client /camera/
-COPY ./camera-utility.sh /camera/
-RUN chmod +x /camera/camera-utility.sh
-
 WORKDIR /camera
 
 RUN cordova --no-telemetry platform add android
 RUN cordova --no-telemetry plugin add cordova-plugin-sslcertificatechecker
 RUN cordova --no-telemetry plugin add git://github.com/zoxxx/PhoneGap-KeepScreenOn-plugin.git
 RUN cordova --no-telemetry plugin add cordova-plugin-websocket
+
+COPY ./camera-utility.sh /camera/
+RUN chmod +x /camera/camera-utility.sh
 
 # fix project files
 RUN ./camera-utility.sh docker-camera-cordova-fix-files
